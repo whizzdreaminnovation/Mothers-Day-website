@@ -1,186 +1,458 @@
-export default function MothersDayWebsite() {
-  const questions = [
-    {
-      question: "What is Mom's favorite fruit? 🍉",
-      options: ["Mango", "Watermelon", "Apple", "Strawberry"],
-      answer: "Mango",
-    },
-    {
-      question: "Which country does Mom love the most? ✈️",
-      options: ["Switzerland", "Sweden", "Spain", "Norway"],
-      answer: "Switzerland",
-    },
-    {
-      question: "Who loves Mom the most? ❤️",
-      options: ["Mom", "Dad", "Sister Heera", "All of the above"],
-      answer: "All of the above",
-    },
-  ];
+<!DOCTYPE html>
+<html lang="en">
 
-  const [currentQuestion, setCurrentQuestion] = React.useState(0);
-  const [score, setScore] = React.useState(0);
-  const [selected, setSelected] = React.useState("");
-  const [showResult, setShowResult] = React.useState(false);
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  const handleAnswer = (option) => {
-    setSelected(option);
+<title>Happy Mother's Day 💖</title>
 
-    setTimeout(() => {
-      if (option === questions[currentQuestion].answer) {
-        setScore((prev) => prev + 1);
-      }
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-      if (currentQuestion + 1 < questions.length) {
-        setCurrentQuestion((prev) => prev + 1);
-        setSelected("");
-      } else {
-        setShowResult(true);
-      }
-    }, 700);
-  };
+<style>
 
-  return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-pink-200 via-rose-100 to-purple-200 relative text-gray-800">
-      {/* Floating Hearts */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute text-pink-400 animate-bounce opacity-70"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              fontSize: `${20 + Math.random() * 25}px`,
-              animationDuration: `${2 + Math.random() * 4}s`,
-            }}
-          >
-            ❤️
-          </div>
-        ))}
-      </div>
-
-      <div className="relative z-10 px-6 py-10 max-w-6xl mx-auto">
-        {/* Hero Section */}
-        <div className="text-center mb-10">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-pink-700 drop-shadow-lg mb-4">
-            Happy Mother’s Day 💖
-          </h1>
-          <p className="text-lg md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Thank you for every hug, every smile, every sacrifice, and every moment of love.
-            This little website is made specially for the most amazing mom in the world. 🌸
-          </p>
-        </div>
-
-        {/* Photo Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-3 hover:scale-105 transition duration-300">
-            <img
-              src="image 1.jpeg"
-              alt="Mom"
-              className="rounded-2xl w-full h-[420px] object-cover"
-            />
-          </div>
-
-          <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-3 hover:scale-105 transition duration-300">
-            <img
-              src="image 2.jpeg"
-              alt="Mom"
-              className="rounded-2xl w-full h-[420px] object-cover"
-            />
-          </div>
-
-          <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-3 hover:scale-105 transition duration-300">
-            <img
-              src="image 3.jpeg"
-              alt="Family"
-              className="rounded-2xl w-full h-[420px] object-cover"
-            />
-          </div>
-
-          <div className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-3 hover:scale-105 transition duration-300">
-            <img
-              src="image 4.jpeg"
-              alt="Family"
-              className="rounded-2xl w-full h-[420px] object-cover"
-            />
-          </div>
-        </div>
-
-        {/* Quiz Section */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-[40px] shadow-2xl p-8 md:p-12 max-w-3xl mx-auto border border-pink-200">
-          {!showResult ? (
-            <>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-bold text-pink-700">
-                  Mom Quiz Game 🎀
-                </h2>
-                <span className="bg-pink-100 text-pink-700 px-4 py-2 rounded-full font-semibold">
-                  Question {currentQuestion + 1}/3
-                </span>
-              </div>
-
-              <h3 className="text-2xl font-semibold mb-8 text-gray-800 leading-relaxed">
-                {questions[currentQuestion].question}
-              </h3>
-
-              <div className="grid gap-4">
-                {questions[currentQuestion].options.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswer(option)}
-                    className={`w-full py-4 rounded-2xl text-lg font-semibold transition-all duration-300 shadow-md
-                      ${
-                        selected === option
-                          ? option === questions[currentQuestion].answer
-                            ? "bg-green-400 text-white scale-105"
-                            : "bg-red-400 text-white"
-                          : "bg-pink-100 hover:bg-pink-300 hover:scale-105"
-                      }
-                    `}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-10">
-              <div className="text-7xl mb-4">💐</div>
-              <h2 className="text-5xl font-extrabold text-pink-700 mb-4">
-                You Finished!
-              </h2>
-              <p className="text-2xl text-gray-700 mb-6">
-                Score: <span className="font-bold text-pink-600">{score}/3</span>
-              </p>
-
-              <div className="bg-pink-100 rounded-3xl p-6 text-lg text-gray-700 leading-relaxed shadow-inner">
-                Mom, you make every place feel like home.
-                <br />
-                Your love, strength, and care mean everything. ❤️
-                <br />
-                Happy Mother’s Day to the most beautiful soul.
-              </div>
-
-              <button
-                onClick={() => {
-                  setCurrentQuestion(0);
-                  setScore(0);
-                  setSelected("");
-                  setShowResult(false);
-                }}
-                className="mt-8 px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-full text-lg font-bold shadow-xl transition hover:scale-105"
-              >
-                Play Again 🌷
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-12 text-gray-700 text-lg font-medium">
-          Made with endless love ❤️
-        </div>
-      </div>
-    </div>
-  );
+body{
+margin:0;
+font-family:Arial, sans-serif;
+overflow-x:hidden;
+background:linear-gradient(135deg,#ffd6e8,#ffeef7,#e5d4ff,#d6e8ff);
+background-size:400% 400%;
+animation:bgMove 15s ease infinite;
 }
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.floating{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+z-index:1;
+}
+
+.item{
+position:absolute;
+font-size:30px;
+animation:fall linear infinite;
+opacity:0.8;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-100px) rotate(0deg);
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+.gallery img{
+width:100%;
+height:380px;
+object-fit:cover;
+border-radius:28px;
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+transition:0.4s;
+}
+
+.gallery img:hover{
+transform:scale(1.03);
+}
+
+.quiz-box{
+background:rgba(255,255,255,0.8);
+backdrop-filter:blur(10px);
+padding:40px;
+border-radius:35px;
+box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
+
+.option-btn{
+padding:16px;
+border:none;
+border-radius:20px;
+font-size:18px;
+font-weight:bold;
+background:#ffd4ea;
+cursor:pointer;
+transition:0.3s;
+}
+
+.option-btn:hover{
+background:#ff9ac8;
+transform:scale(1.03);
+}
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:35px;
+border-radius:30px;
+box-shadow:0 10px 40px rgba(0,0,0,0.3);
+z-index:1000;
+max-width:500px;
+text-align:center;
+display:none;
+animation:pop 0.5s ease;
+}
+
+@keyframes pop{
+0%{
+transform:translate(-50%,-50%) scale(0.5);
+opacity:0;
+}
+100%{
+transform:translate(-50%,-50%) scale(1);
+opacity:1;
+}
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.4);
+display:none;
+z-index:999;
+}
+
+.glow{
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{
+text-shadow:0 0 10px #ff6fa5;
+}
+to{
+text-shadow:0 0 25px #ff0080;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating Hearts & Flowers -->
+
+<div class="floating" id="floating"></div>
+
+<!-- Popup -->
+
+<div class="overlay" id="overlay"></div>
+
+<div class="popup" id="popup">
+
+<h2 style="font-size:40px;color:#e91e63;margin-bottom:20px">
+💌 Surprise 💌
+</h2>
+
+<p style="font-size:22px;line-height:1.8;color:#444">
+Mom, thank you for every sacrifice, every smile, and every moment of love ❤️<br><br>
+
+You are the strongest and kindest person in our lives.<br><br>
+
+Happy Mother’s Day 🌸
+</p>
+
+<button onclick="closePopup()"
+style="
+margin-top:25px;
+padding:14px 30px;
+border:none;
+border-radius:20px;
+background:#ff5fa2;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+">
+Close 💖
+</button>
+
+</div>
+
+<div style="max-width:1200px;margin:auto;padding:30px;position:relative;z-index:10">
+
+<h1 class="glow"
+style="
+text-align:center;
+font-size:70px;
+color:#e91e63;
+font-weight:900;
+margin-bottom:20px;
+">
+Happy Mother’s Day 💖
+</h1>
+
+<p style="
+text-align:center;
+font-size:24px;
+color:#444;
+margin-bottom:50px;
+">
+Made with endless love for the most amazing mom ❤️
+</p>
+
+<!-- Gallery -->
+
+<div class="gallery"
+style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+margin-bottom:60px;
+">
+
+<img src="image 1.jpeg">
+<img src="image 2.jpeg">
+<img src="image 3.jpeg">
+<img src="image 4.jpeg">
+
+</div>
+
+<!-- Quiz -->
+
+<div class="quiz-box">
+
+<h2 style="
+text-align:center;
+font-size:45px;
+color:#e91e63;
+margin-bottom:35px;
+">
+Mom Quiz 🎀
+</h2>
+
+<div id="quiz"></div>
+
+</div>
+
+<div style="
+text-align:center;
+margin-top:50px;
+font-size:22px;
+color:#555;
+font-weight:bold;
+">
+Made with endless love ❤️
+</div>
+
+</div>
+
+<script>
+
+/* Floating Items */
+
+const floating = document.getElementById("floating");
+
+const symbols = ["❤️","💖","🌸","💕","💐","🌷"];
+
+for(let i=0;i<40;i++){
+
+const item = document.createElement("div");
+
+item.className = "item";
+
+item.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+
+item.style.left = Math.random()*100 + "%";
+
+item.style.animationDuration = (5 + Math.random()*8) + "s";
+
+item.style.fontSize = (20 + Math.random()*25) + "px";
+
+item.style.animationDelay = Math.random()*5 + "s";
+
+floating.appendChild(item);
+
+}
+
+/* Quiz */
+
+const questions = [
+
+{
+question:"What is Mom's favorite fruit? 🍉",
+options:["Mango","Watermelon","Apple","Strawberry"],
+answer:"Mango"
+},
+
+{
+question:"Mom's favorite country? ✈️",
+options:["Switzerland","Sweden","Spain","Norway"],
+answer:"Switzerland"
+},
+
+{
+question:"Who loves Mom the most? ❤️",
+options:["Mom","Dad","Sister Heera","All of the above"],
+answer:"All of the above"
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion(){
+
+if(currentQuestion >= questions.length){
+
+celebrate();
+
+document.getElementById("quiz").innerHTML = `
+
+<div style="text-align:center">
+
+<h2 style="
+font-size:55px;
+color:#e91e63;
+margin-bottom:20px;
+">
+🎉 You Finished 🎉
+</h2>
+
+<p style="
+font-size:28px;
+margin-bottom:20px;
+">
+Score: ${score}/3
+</p>
+
+<p style="
+font-size:24px;
+line-height:1.8;
+color:#444;
+">
+Mom, you make every place feel like home ❤️<br><br>
+
+Your love, strength, and care mean everything.<br><br>
+
+Happy Mother’s Day 🌸
+</p>
+
+<button onclick="showPopup()"
+style="
+margin-top:30px;
+padding:18px 35px;
+border:none;
+border-radius:25px;
+background:#ff5fa2;
+color:white;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+">
+Open Surprise 💌
+</button>
+
+</div>
+
+`;
+
+return;
+}
+
+const q = questions[currentQuestion];
+
+document.getElementById("quiz").innerHTML = `
+
+<h3 style="
+font-size:32px;
+margin-bottom:30px;
+color:#333;
+">
+${q.question}
+</h3>
+
+<div style="display:grid;gap:18px">
+
+${q.options.map(option => `
+
+<button class="option-btn"
+onclick="checkAnswer('${option}')">
+
+${option}
+
+</button>
+
+`).join("")}
+
+</div>
+
+`;
+
+}
+
+function checkAnswer(option){
+
+if(option === questions[currentQuestion].answer){
+
+score++;
+
+confetti({
+particleCount:100,
+spread:90,
+origin:{y:0.6}
+});
+
+alert("Correct ❤️");
+
+}else{
+
+alert("Oops 😅");
+
+}
+
+currentQuestion++;
+
+loadQuestion();
+
+}
+
+/* Final Celebration */
+
+function celebrate(){
+
+confetti({
+particleCount:300,
+spread:150,
+origin:{y:0.6}
+});
+
+}
+
+/* Popup */
+
+function showPopup(){
+
+document.getElementById("popup").style.display = "block";
+document.getElementById("overlay").style.display = "block";
+
+}
+
+function closePopup(){
+
+document.getElementById("popup").style.display = "none";
+document.getElementById("overlay").style.display = "none";
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
